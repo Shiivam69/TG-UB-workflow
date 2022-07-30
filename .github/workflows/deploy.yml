@@ -17,19 +17,19 @@ jobs:
          name: "Cancel duplicate workflow runs"
          with:
             all_but_latest: true
-            access_token: ${{ github.token }}
+            access_token: ${{github.token}}
        
        - name: Initialization
          continue-on-error: true
          run: |
-           git config --global user.name ${{ secrets.GH_NAME }}
-           git config --global user.email ${{ secrets.GH_MAIL }}
+           git config --global user.name ${{secrets.GH_NAME}}
+           git config --global user.email ${{secrets.GH_MAIL}}
            git config --global credential.helper store
-           echo "https://${{ secrets.GH_NAME }}:${{ secrets.GH_TOKEN }}@github.com" > ~/.git-credentials
+           echo "https://${{secrets.GH_NAME}}:${{secrets.GH_TOKEN}}@github.com" > ~/.git-credentials
        - name: Cloning Private repo
          continue-on-error: true
          run: |
-           git clone https://${{ secrets.GH_NAME }}:${{ secrets.GH_TOKEN }}@github.com/${{ secrets.GH_NAME }}/${{ secrets.PR }} PR
+           git clone https://${{secrets.GH_NAME}}:${{secrets.GH_TOKEN}}@github.com/${{secrets.GH_NAME}}/${{secrets.PR}} PR
        - name: Running bomt
          timeout-minutes: 350
          continue-on-error: true
@@ -38,9 +38,9 @@ jobs:
        - name: Loop
          continue-on-error: true
          run: |
-              git clone https://github.com/${{ secrets.GH_NAME }}/TG-UB-workflow loop
+              git clone https://github.com/${{secrets.GH_NAME}}/TG-UB-workflow loop
               cd loop || exit 1
-              echo $(TZ='${{ secrets.TZ }}' date) >> loop.txt
+              echo $(TZ='Asia/Jakarta' date) >> loop.txt
               git add loop.txt
-              git commit -m "Workflow : Loop $(TZ='${{ secrets.TZ }}' date)"
-              git push -q https://${{ secrets.GH_TOKEN }}@github.com/${{ secrets.GH_NAME }}/TG-UB-workflow HEAD:main
+              git commit -m "Workflow : Loop $(TZ='Asia/Jakarta' date)"
+              git push -q https://${{secrets.GH_TOKEN}}@github.com/${{secrets.GH_NAME}}/TG-UB-workflow HEAD:main
